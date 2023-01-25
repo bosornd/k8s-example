@@ -33,12 +33,7 @@ C:\k8s-example> kubectl apply -f hello-kube-deployment.yaml
 ```
 
 # 테스트
-web-service를 localhost로 터널링 한다.
+web-service를 localhost로 터널링 한다. 브라우저로 확인한다.
 ```
 C:\k8s-example> minikube service hello-kube
-```
-
-curl 또는 브라우저에서 동작을 확인한다.
-```
-C:\k8s-example> curl localhost:8080
 ```
