@@ -1,0 +1,12 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: counter
+build:
+  artifacts:
+  - image: counter
+    docker:
+      dockerfile: dockerfile
+manifests:
+  rawYaml:
+  - counter-deployment.yaml
