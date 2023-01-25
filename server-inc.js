@@ -3,14 +3,14 @@ var redis = require('redis');
 
 http.createServer(function (request, response) {
     var redisClient = redis.createClient({
-        url:'redis://redis.default.svc.cluster.local:6379',
+        url:'redis://redis-0.redis.default.svc.cluster.local:6379',
         legacyMode:true
     });
     redisClient.connect();
 
-    redisClient.get('count', function (err, data) {
+    redisClient.incr('count', function (err, count) {
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.end(data);
+        response.end(count.toString());
     });
 }).listen(8081);
 

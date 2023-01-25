@@ -1,7 +1,8 @@
 # Kubernetes Example
-간단한 Counter를 만들고 Kubernetes에 배포한다.<p>
-count는 Persistent Volume에 count.txt에 저장한다.<p>
-<img src="https://github.com/bosornd/k8s-example/raw/v3-counter/images/deployment.png" width=100% />
+Redis DB를 master-slave로 구성하고 count를 저장한다.<p>
+count를 증가시키는 webInc와 count 값을 전달하는 web 서버를 별도로 구성한다.<p>
+Ingress API Gateway를 설정한다.<p>
+<img src="https://github.com/bosornd/k8s-example/raw/v4-counter-with-redis/images/deployment.png" width=100% />
 
 
 # minikube (Kubernetes cluster) 시작하기
@@ -9,33 +10,9 @@ count는 Persistent Volume에 count.txt에 저장한다.<p>
 C:\k8s-example> minikube start
 ```
 
-# docker image 빌드하기
-docker 환경을 minikube로 변경한다.
+ingress를 사용하기 위해서 addon을 활성화 해야 한다.
 ```
-C:\k8s-example> minikube docker-env
-SET DOCKER_TLS_VERIFY=1
-SET DOCKER_HOST=tcp://127.0.0.1:60807
-SET DOCKER_CERT_PATH=C:\Users\drajin\.minikube\certs
-SET MINIKUBE_ACTIVE_DOCKERD=minikube
-REM To point your shell to minikube's docker-daemon, run:
-REM @FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env --shell cmd') DO @%i
-
-C:\k8s-example> @FOR /f "tokens=*" %i IN ('minikube -p minikube docker-env --shell cmd') DO @%i
-```
-
-docker image를 빌드한다.
-```
-C:\k8s-example> docker build -t counter:v1 .
-```
-
-최신 버전을 latest로 태그한다.
-```
-C:\k8s-example> docker tag counter:v1 counter:latest
-```
-
-# 쿠버네티스에 배포하기
-```
-C:\k8s-example> kubectl apply -f counter-deployment.yaml
+C:\k8s-example> minikube addons enable ingress
 ```
 
 # Skaffold
@@ -45,7 +22,21 @@ C:\k8s-example> skaffold run
 ```
 
 # 테스트
-web-service를 localhost로 터널링 한다. 브라우저로 확인한다.
+ingress를 localhost로 터널링 한다.
 ```
-C:\k8s-example> minikube service counter
+C:\k8s-example> minikube tunnel
+```
+
+브라우저나 curl로 확인한다.
+```
+C:\k8s-example> curl localhost/inc
+1
+C:\k8s-example> curl localhost/inc
+2
+C:\k8s-example> curl localhost/inc
+3
+C:\k8s-example> curl localhost
+3
+C:\k8s-example> curl localhost
+3
 ```

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-inc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-inc
+  template:
+    metadata:
+      labels:
+        app: web-inc
+    spec:
+      containers:
+      - name: web-inc
+        image: web-inc
+        ports:
+        - containerPort: 8081
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-inc
+spec:
+  type: ClusterIP
+  selector:
+    app: web-inc
+  ports:
+  - port: 8080
+    targetPort: 8081

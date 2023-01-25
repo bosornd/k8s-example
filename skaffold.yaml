@@ -4,9 +4,15 @@ metadata:
   name: counter
 build:
   artifacts:
-  - image: counter
+  - image: web
     docker:
       dockerfile: dockerfile
+  - image: web-inc
+    docker:
+      dockerfile: dockerfile-inc
 manifests:
   rawYaml:
-  - counter-deployment.yaml
+  - web-deployment.yaml
+  - web-inc-deployment.yaml
+  - redis-deployment.yaml
+  - ingress-deployment.yaml

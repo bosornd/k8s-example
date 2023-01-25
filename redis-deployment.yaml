@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      svc: redis # has to match .spec.template.metadata.labels
+  serviceName: redis
+  replicas: 3 # by default is 1
+  template:
+    metadata:
+      labels:
+        svc: redis # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        command:
+        - sh
+        - -c
+        - |
+          if [ `hostname` = redis-0 ]; then
+            redis-server
+          else
+            redis-server --replicaof redis-0.redis.default.svc.cluster.local 6379
+          fi
+        ports:
+        - containerPort: 6397
+        volumeMounts:
+        - name: data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Ki
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  type: ClusterIP
+  selector:
+    svc: redis
+  ports:
+  - port: 6379
