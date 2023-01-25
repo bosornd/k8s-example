@@ -1,0 +1,16 @@
+FROM node:latest
+
+WORKDIR /src
+
+COPY ./common ./common
+COPY ./data ./data
+COPY ./web-inc ./web
+COPY ./package.json ./
+COPY ./tsconfig.json ./
+
+RUN npm install
+RUN npm install tsc -g
+RUN npm run build
+
+EXPOSE 8080
+CMD npm run start

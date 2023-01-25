@@ -1,18 +1,20 @@
 apiVersion: skaffold/v4beta1
 kind: Config
 metadata:
-  name: counter
+  name: k8s-example
 build:
   artifacts:
   - image: web
+    context: src
     docker:
       dockerfile: dockerfile
   - image: web-inc
+    context: src
     docker:
       dockerfile: dockerfile-inc
 manifests:
   rawYaml:
-  - web-deployment.yaml
-  - web-inc-deployment.yaml
-  - redis-deployment.yaml
-  - ingress-deployment.yaml
+  - manifests/redis-deployment.yaml
+  - manifests/web-deployment.yaml
+  - manifests/web-inc-deployment.yaml
+  - manifests/ingress-deployment.yaml
