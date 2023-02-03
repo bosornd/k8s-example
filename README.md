@@ -22,8 +22,8 @@
 * server.ts는 logic.ts를 이용해서 웹 서버를 생성합니다.
 
 다음과 같이 모듈 구조를 바꾸면 어떤 차이가 있을까요?<p>
+<img src="https://github.com/bosornd/k8s-example/raw/main/images/module2.png" width=50% /><p>
 설명은 [여기에](https://k8s.bosornd.com/kubernetes/kubernetes-and-beyond/)<p>
-<img src="https://github.com/bosornd/k8s-example/raw/main/images/module2.png" width=50% />
 
 # minikube (Kubernetes cluster) 시작하기
 ```
