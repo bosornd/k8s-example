@@ -1,6 +1,6 @@
 # Kubernetes Example
 그림과 같이 3개의 마이크로 서비스로 구성된 시스템을 구현합니다.<p>
-<img src="https://github.com/bosornd/k8s-example/raw/main/images/deployment.png" width=50% />
+<img src="https://github.com/bosornd/k8s-example/raw/main/images/deployment.png" width=75% />
 * 상태가 유지될 필요가 없는 web, web-inc 서비스는 deployment로 구현합니다.
   - web 서비스는 현재 count 값을 제공합니다.
   - web-inc 서비스는 count 값을 증가시킵니다.
