@@ -1,6 +1,6 @@
 # Kubernetes Example
 그림과 같이 3개의 마이크로 서비스로 구성된 시스템을 구현합니다.<p>
-<img src="https://github.com/bosornd/k8s-example/raw/main/images/deployment.png" width=100% />
+<img src="https://github.com/bosornd/k8s-example/raw/main/images/deployment.png" width=50% />
 * 상태가 유지될 필요가 없는 web, web-inc 서비스는 deployment로 구현합니다.
   - web 서비스는 현재 count 값을 제공합니다.
   - web-inc 서비스는 count 값을 증가시킵니다.
@@ -10,18 +10,20 @@
   질의는 redis 서비스로 요청해서 부하를 분산시킵니다. &rarr; CQRS 패턴 
 * Ingress API Gateway 설정으로 단일 진입점을 구성합니다.
 
-이렇게 서비스를 구분하면 어떤 장점이 있을까요? 단점은?
+이렇게 서비스를 구분하면 어떤 장점이 있을까요? 단점은?<p>
+설명은 [여기에](https://k8s.bosornd.com/kubernetes/kubernetes-and-beyond/)
 
 # 모듈 구조
 개발된 소스 코드, 모듈 구조는 그림과 같습니다.<p>
-<img src="https://github.com/bosornd/k8s-example/raw/main/images/module.png" width=100% />
+<img src="https://github.com/bosornd/k8s-example/raw/main/images/module.png" width=50% />
 * CountDB는 인터페이스 ICountDB를 구현합니다.
 * logic.ts는 인터페이스 ICountDB를 사용합니다.
 * config.ts는 CountDB의 구현을 설정합니다(Dependency Injection).
 * server.ts는 logic.ts를 이용해서 웹 서버를 생성합니다.
 
 다음과 같이 모듈 구조를 바꾸면 어떤 차이가 있을까요?<p>
-<img src="https://github.com/bosornd/k8s-example/raw/main/images/module2.png" width=100% />
+설명은 [여기에](https://k8s.bosornd.com/kubernetes/kubernetes-and-beyond/)<p>
+<img src="https://github.com/bosornd/k8s-example/raw/main/images/module2.png" width=50% />
 
 # minikube (Kubernetes cluster) 시작하기
 ```
